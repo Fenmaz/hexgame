@@ -1,3 +1,7 @@
+# Intellj files #
+#################
+.idea/workspace.xml
+
 # Compiled source #
 ###################
 *.com
@@ -35,7 +39,3 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
-
-# Intellj files #
-#################
-.idea/*
