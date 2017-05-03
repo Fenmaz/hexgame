@@ -55,8 +55,8 @@ class Hexagon extends GraphicsGroup{
      * Draw x if the first player chooses the piece and mark the piece to be occupied by player 1.
      */
     private void xState() {
-        Line lineX1 = new Line(x-0.5*HEX_RADIUS,y-0.5*HEX_HEIGHT,x+0.5*HEX_RADIUS,y+0.5*HEX_HEIGHT);
-        Line lineX2 = new Line (x-0.5*HEX_RADIUS,y+0.5*HEX_HEIGHT,x+0.5*HEX_RADIUS,y-0.5*HEX_HEIGHT);
+        Line lineX1 = new Line(x - 0.5 * HEX_RADIUS, y - 0.5 * HEX_HEIGHT, x + 0.5 * HEX_RADIUS, y + 0.5 * HEX_HEIGHT);
+        Line lineX2 = new Line (x - 0.5 * HEX_RADIUS, y + 0.5 * HEX_HEIGHT, x + 0.5 * HEX_RADIUS, y - 0.5 * HEX_HEIGHT);
         add(lineX1);
         add(lineX2);
 //        System.out.print("This piece is occupied by player "+occupied+".");
@@ -66,7 +66,7 @@ class Hexagon extends GraphicsGroup{
      * Draw o if the second player chooses the piece and mark the piece to be occupied by player 2.
      */
     private void oState() {
-        Ellipse circleO = new Ellipse(x-0.5*HEX_RADIUS,y-0.5*HEX_HEIGHT,HEX_RADIUS,HEX_RADIUS);
+        Ellipse circleO = new Ellipse(x - 0.5 * HEX_RADIUS, y - 0.5 * HEX_HEIGHT, HEX_RADIUS, HEX_RADIUS);
         add(circleO);
 //        System.out.print("This piece is occupied by player "+occupied+".");
     }
