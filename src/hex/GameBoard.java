@@ -1,11 +1,15 @@
 package hex;
 
+import comp124graphics.CanvasWindow;
 import comp124graphics.GraphicsGroup;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
 import java.util.stream.Collectors;
+
+import static hex.HexGame.HEX_HEIGHT;
+import static hex.HexGame.HEX_RADIUS;
 
 /**
  * Created by Trung Nguyen on 5/2/2017.
@@ -19,6 +23,9 @@ class GameBoard extends GraphicsGroup {
     private Set<Hexagon> NW_region;
     private Set<Hexagon> SW_region;
 
+    private Hexagon[] allHexes;
+    private int numHexOnEdge;
+
 
     /**
      * Draw the game board.
@@ -27,8 +34,8 @@ class GameBoard extends GraphicsGroup {
 
         super();
 
-        int numHex = numHexOnEdge * numHexOnEdge;
-        Hexagon[] allHexes = new Hexagon[numHex];
+        this.numHexOnEdge = numHexOnEdge;
+        this.allHexes = new Hexagon[numHexOnEdge * numHexOnEdge];
 
         NE_region = new HashSet<>();
         SE_region = new HashSet<>();
@@ -38,27 +45,40 @@ class GameBoard extends GraphicsGroup {
         // Draw all hex and add them to an array.
         for (int i = 0; i < numHexOnEdge; i++) {
             for (int j = 0; j < numHexOnEdge; j++) {
-                Hexagon hex = new Hexagon((i - j) * HexGame.HEX_HEIGHT, (i + j) * HexGame.HEX_RADIUS * 2);
+                Hexagon hex = new Hexagon((i + j + .66) * HEX_RADIUS * 1.5 / 2, (numHexOnEdge + j - i) * HEX_HEIGHT / 2);
                 add(hex);
-                allHexes[i * numHexOnEdge + j] = hex;
+                this.allHexes[i * numHexOnEdge + j] = hex;
             }
         }
 
-        // Add hex to regions
-        for (int i = 0; i < numHexOnEdge; i++) {
-            SW_region.add(allHexes[i]);
-            NW_region.add(allHexes[i * numHexOnEdge]);
-            NE_region.add(allHexes[numHex - 1 - i]);
-            SE_region.add(allHexes[numHexOnEdge * (i + 1) - 1]);
-        }
+        populateRegions();
+        addAdjacentHex();
 
-        // Add all adjacent hexagons to each hex.
-        for (int i = 0; i < numHex; i++) {
+    }
+
+
+    /**
+     * Add all adjacent hexagons to each hex.
+     */
+    private void addAdjacentHex() {
+        for (int i = 0; i < numHexOnEdge * numHexOnEdge; i++) {
             Hexagon hex = allHexes[i];
             int[] possibleAdjacent = {i - 1, i + 1, i - numHexOnEdge, i + numHexOnEdge,
                     i - numHexOnEdge + 1, i + numHexOnEdge - 1};
             for (int j: possibleAdjacent) if (0 <= j && j < allHexes.length) hex.addAdjacent(allHexes[j]);
 
+        }
+    }
+
+    /**
+     * Populate the region sets with corresponding hexagons.
+     */
+    private void populateRegions() {
+        for (int i = 0; i < numHexOnEdge; i++) {
+            SW_region.add(allHexes[i]);
+            NW_region.add(allHexes[i * numHexOnEdge]);
+            NE_region.add(allHexes[numHexOnEdge * numHexOnEdge - 1 - i]);
+            SE_region.add(allHexes[numHexOnEdge * (i + 1) - 1]);
         }
     }
 
@@ -114,4 +134,11 @@ class GameBoard extends GraphicsGroup {
         }
         return false;
     }
+
+    public static void main(String[] arg) {
+        CanvasWindow canvas = new CanvasWindow("GameBoard", 1000, 700);
+        GameBoard board = new GameBoard(11);
+        canvas.add(board);
+    }
+
 }

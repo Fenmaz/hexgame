@@ -13,8 +13,8 @@ import java.awt.event.MouseListener;
 class HexGame extends CanvasWindow implements MouseListener {
 
     /* Private constants */
-    private static final int CANVAS_WIDTH = 800;
-    private static final int CANVAS_HEIGHT = 1000;
+    private static final int CANVAS_WIDTH = 1000;
+    private static final int CANVAS_HEIGHT = 600;
 
     private static final int NUM_HEX_ON_EDGE = 11;
 
@@ -22,8 +22,8 @@ class HexGame extends CanvasWindow implements MouseListener {
     static final int FIRST_PLAYER = 1;
     static final int SECOND_PLAYER = 2;
 
-    static final double HEX_RADIUS = 10;
-    static final double HEX_HEIGHT = HexGame.HEX_RADIUS * Math.sqrt(3) / 2;
+    static final double HEX_RADIUS = 30;
+    static final double HEX_HEIGHT = HEX_RADIUS * Math.sqrt(3) / 2;
 
 
     /* Private variables */
@@ -40,8 +40,7 @@ class HexGame extends CanvasWindow implements MouseListener {
         super("Hex Game", CANVAS_WIDTH, CANVAS_HEIGHT);
 
         board = new GameBoard(NUM_HEX_ON_EDGE);
-
-        add(board);
+        add(board, (CANVAS_WIDTH - board.getWidth()) / 2, (CANVAS_HEIGHT - board.getHeight()) / 2);
 
         turn = FIRST_PLAYER;
 
@@ -53,9 +52,12 @@ class HexGame extends CanvasWindow implements MouseListener {
      */
     @Override
     public void mouseClicked(MouseEvent e) {
-        Hexagon hex = (Hexagon) getElementAt(e.getX(), e.getY());
-        if (hex != null) {
-            hex.mark(turn);
+        GraphicsObject hex = this.getElementAt(e.getX(), e.getY());
+        System.out.print("Mouse click registered\n");
+        // TODO: hex does not get recognized as of class Hexagon.
+        if (hex instanceof Hexagon && ((Hexagon) hex).getPlayer() == FREE_HEX) {
+            System.out.print("Marking hex" + hex.getPosition());
+            ((Hexagon) hex).mark(turn);
 
             // Check if either player wins
             if (board.firstPlayerWin()) announceWinner(FIRST_PLAYER);
@@ -84,7 +86,8 @@ class HexGame extends CanvasWindow implements MouseListener {
 
     public void mouseReleased(MouseEvent e) {}
 
-    public static void main(String args[]) {
+    public static void main(String[] arg) {
         HexGame game = new HexGame();
     }
+
 }

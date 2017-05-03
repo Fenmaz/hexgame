@@ -25,19 +25,19 @@ class Hexagon extends GraphicsGroup{
 
         super(x, y);
 
-        player = HexGame.FREE_HEX;
+        this.player = HexGame.FREE_HEX;
 
         this.x = x;
         this.y = y;
 
         adjacent = new ArrayList<>();
 
-        Line line1 = new Line(x+ HEX_RADIUS, y, x+0.5* HEX_RADIUS,y- HEX_HEIGHT);
-        Line line2 = new Line(x+0.5* HEX_RADIUS,y-HEX_HEIGHT, x-0.5*HEX_RADIUS,y-HEX_HEIGHT);
-        Line line3 = new Line(x-0.5*HEX_RADIUS,y-HEX_HEIGHT, x-HEX_RADIUS,y);
-        Line line4 = new Line(x-HEX_RADIUS, y, x-0.5*HEX_RADIUS,y+HEX_HEIGHT);
-        Line line5 = new Line(x-0.5*HEX_RADIUS,y+HEX_HEIGHT, x+0.5*HEX_RADIUS,y+HEX_HEIGHT);
-        Line line6 = new Line(x+0.5*HEX_RADIUS,y+HEX_HEIGHT, x+HEX_RADIUS, y);
+        Line line1 = new Line(x + HEX_RADIUS, y, x + 0.5 * HEX_RADIUS, y - HEX_HEIGHT);
+        Line line2 = new Line(x + 0.5 * HEX_RADIUS, y - HEX_HEIGHT, x - 0.5 * HEX_RADIUS, y -HEX_HEIGHT);
+        Line line3 = new Line(x - 0.5 * HEX_RADIUS, y - HEX_HEIGHT, x - HEX_RADIUS, y);
+        Line line4 = new Line(x - HEX_RADIUS, y, x - 0.5 * HEX_RADIUS, y + HEX_HEIGHT);
+        Line line5 = new Line(x - 0.5 * HEX_RADIUS, y + HEX_HEIGHT, x + 0.5 * HEX_RADIUS, y + HEX_HEIGHT);
+        Line line6 = new Line(x + 0.5 * HEX_RADIUS, y + HEX_HEIGHT, x + HEX_RADIUS, y);
         add(line1);
         add(line2);
         add(line3);
