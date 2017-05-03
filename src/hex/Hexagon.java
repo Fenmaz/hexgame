@@ -11,6 +11,6 @@ public class Hexagon extends GraphicsObject {
     private double x;
     private double y;
 
-    public Hexagon() {}
+    public Hexagon(double x, double y) {}
 
 }
