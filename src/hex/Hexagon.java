@@ -2,6 +2,7 @@ package hex;
 
 import comp124graphics.*;
 
+import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
@@ -89,6 +90,11 @@ class Hexagon extends GraphicsGroup{
 
     ArrayList<Hexagon> getAdjacent() {
         return this.adjacent;
+    }
+
+    public boolean testHit(double x, double y, Graphics2D gc) {
+        // TODO: return true if the point is in the hex region
+        return false;
     }
 
     public static void main(String[] arg) {
