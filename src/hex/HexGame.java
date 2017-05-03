@@ -18,6 +18,9 @@ public class HexGame extends CanvasWindow implements MouseListener {
     private static final int FIRST_PLAYER = 1;
     private static final int SECOND_PLAYER = 2;
 
+    protected static final double HEX_RADIUS = 10;
+    protected static final double HEX_HEIGHT = HexGame.HEX_RADIUS * Math.sqrt(3) / 2;
+
 
     /* Private variables */
     private GameBoard board;

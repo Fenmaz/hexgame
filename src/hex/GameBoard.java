@@ -12,15 +12,13 @@ import java.util.Set;
  */
 public class GameBoard extends GraphicsGroup {
 
-    public static final int HEX_RADIUS = 10;
-    public static final double HEX_HEIGHT = HEX_RADIUS * Math.sqrt(3) / 2;
 
     private ArrayList<Hexagon> allHexes;
 
     public GameBoard(int numHexOnEdge) {
         for (int i = 0; i < numHexOnEdge; i++) {
             for (int j = 0; j < numHexOnEdge; j++) {
-                Hexagon hex = new Hexagon((i - j) * HEX_HEIGHT, (i + j) * HEX_RADIUS * 2);
+                Hexagon hex = new Hexagon((i - j) * HexGame.HEX_HEIGHT, (i + j) * HexGame.HEX_RADIUS * 2);
                 add(hex);
                 allHexes.add(hex);
             }
