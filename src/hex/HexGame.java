@@ -19,8 +19,8 @@ public class HexGame extends CanvasWindow implements MouseListener {
     private static final int NUM_HEX_ON_EDGE = 11;
 
     private static final int FREE_HEX = 0;
-    private static final int FIRST_PLAYER = 1;
-    private static final int SECOND_PLAYER = 2;
+    static final int FIRST_PLAYER = 1;
+    static final int SECOND_PLAYER = 2;
 
     static final double HEX_RADIUS = 10;
     static final double HEX_HEIGHT = HexGame.HEX_RADIUS * Math.sqrt(3) / 2;

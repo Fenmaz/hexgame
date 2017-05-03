@@ -2,21 +2,35 @@ package hex;
 
 import comp124graphics.GraphicsGroup;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Stack;
+import java.util.stream.Collectors;
+
 /**
  * Created by Trung Nguyen on 5/2/2017.
  *
  * The game board.
  */
-public class GameBoard extends GraphicsGroup {
+class GameBoard extends GraphicsGroup {
 
+    private Set<Hexagon> NE_region;
+    private Set<Hexagon> SE_region;
+    private Set<Hexagon> NW_region;
+    private Set<Hexagon> SW_region;
 
-    private Hexagon[] allHexes;
 
     /**
      * Draw the game board.
      */
     GameBoard(int numHexOnEdge) {
-        allHexes = new Hexagon[numHexOnEdge * numHexOnEdge];
+        int numHex = numHexOnEdge * numHexOnEdge;
+        Hexagon[] allHexes = new Hexagon[numHex];
+
+        NE_region = new HashSet<>();
+        SE_region = new HashSet<>();
+        NW_region = new HashSet<>();
+        SW_region = new HashSet<>();
 
         // Draw all hex and add them to an array.
         for (int i = 0; i < numHexOnEdge; i++) {
@@ -27,8 +41,16 @@ public class GameBoard extends GraphicsGroup {
             }
         }
 
+        // Add hex to regions
+        for (int i = 0; i < numHexOnEdge; i++) {
+            SW_region.add(allHexes[i]);
+            NW_region.add(allHexes[i * numHexOnEdge]);
+            NE_region.add(allHexes[numHex - i]);
+            SE_region.add(allHexes[numHexOnEdge * (i + 1) - 1]);
+        }
+
         // Add all adjacent hexagons to each hex.
-        for (int i = 0; i < allHexes.length; i++) {
+        for (int i = 0; i < numHex; i++) {
             Hexagon hex = allHexes[i];
             int[] possibleAdjacent = {i - 1, i + 1, i - numHexOnEdge, i + numHexOnEdge,
                     i - numHexOnEdge + 1, i + numHexOnEdge - 1};
@@ -41,7 +63,28 @@ public class GameBoard extends GraphicsGroup {
      * Check if the first player wins.
      */
     boolean firstPlayerWin() {
-        // TODO: Check if first player wins by a DFS on the hexagons starting from the SW region
+//        Stack<Hexagon> stack = new Stack<>();
+//        for (Hexagon hex: SW_region)
+//            if (hex.player() == HexGame.FIRST_PLAYER)
+//                stack.add(hex);
+
+        Stack<Hexagon> stack = SW_region.stream()
+                .filter(hexagon -> hexagon.player() != HexGame.FIRST_PLAYER)
+                .collect(Collectors.toCollection(Stack::new));
+
+        HashSet<Hexagon> visited = new HashSet<>();
+
+        while (!stack.empty()) {
+            Hexagon last = stack.pop();
+            for (Hexagon hex: last.getAdjacent()) {
+                if (hex.player() == HexGame.FIRST_PLAYER && !visited.contains(hex)) {
+                    if (NE_region.contains(hex)) return true;
+                    visited.add(hex);
+                    stack.add(hex);
+                }
+            }
+
+        }
         return false;
     }
 
@@ -49,7 +92,23 @@ public class GameBoard extends GraphicsGroup {
      * Check if the second player wins.
      */
     boolean secondPlayerWin() {
-        // TODO: Check if second player wins by a DFS on the hexagons starting from the NW region
+        Stack<Hexagon> stack = NW_region.stream()
+                .filter(hexagon -> hexagon.player() != HexGame.SECOND_PLAYER)
+                .collect(Collectors.toCollection(Stack::new));
+
+        HashSet<Hexagon> visited = new HashSet<>();
+
+        while (!stack.empty()) {
+            Hexagon last = stack.pop();
+            for (Hexagon hex: last.getAdjacent()) {
+                if (hex.player() == HexGame.SECOND_PLAYER && !visited.contains(hex)) {
+                    if (SE_region.contains(hex)) return true;
+                    visited.add(hex);
+                    stack.add(hex);
+                }
+            }
+
+        }
         return false;
     }
 }
