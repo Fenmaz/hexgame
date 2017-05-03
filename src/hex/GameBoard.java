@@ -24,6 +24,9 @@ class GameBoard extends GraphicsGroup {
      * Draw the game board.
      */
     GameBoard(int numHexOnEdge) {
+
+        super();
+
         int numHex = numHexOnEdge * numHexOnEdge;
         Hexagon[] allHexes = new Hexagon[numHex];
 
@@ -45,7 +48,7 @@ class GameBoard extends GraphicsGroup {
         for (int i = 0; i < numHexOnEdge; i++) {
             SW_region.add(allHexes[i]);
             NW_region.add(allHexes[i * numHexOnEdge]);
-            NE_region.add(allHexes[numHex - i]);
+            NE_region.add(allHexes[numHex - 1 - i]);
             SE_region.add(allHexes[numHexOnEdge * (i + 1) - 1]);
         }
 
@@ -69,7 +72,7 @@ class GameBoard extends GraphicsGroup {
 //                stack.add(hex);
 
         Stack<Hexagon> stack = SW_region.stream()
-                .filter(hexagon -> hexagon.player() == HexGame.FIRST_PLAYER)
+                .filter(hexagon -> hexagon.getPlayer() == HexGame.FIRST_PLAYER)
                 .collect(Collectors.toCollection(Stack::new));
 
         HashSet<Hexagon> visited = new HashSet<>();
@@ -77,7 +80,7 @@ class GameBoard extends GraphicsGroup {
         while (!stack.empty()) {
             Hexagon last = stack.pop();
             for (Hexagon hex: last.getAdjacent()) {
-                if (hex.player() == HexGame.FIRST_PLAYER && !visited.contains(hex)) {
+                if (hex.getPlayer() == HexGame.FIRST_PLAYER && !visited.contains(hex)) {
                     if (NE_region.contains(hex)) return true;
                     visited.add(hex);
                     stack.add(hex);
@@ -93,7 +96,7 @@ class GameBoard extends GraphicsGroup {
      */
     boolean secondPlayerWin() {
         Stack<Hexagon> stack = NW_region.stream()
-                .filter(hexagon -> hexagon.player() == HexGame.SECOND_PLAYER)
+                .filter(hexagon -> hexagon.getPlayer() == HexGame.SECOND_PLAYER)
                 .collect(Collectors.toCollection(Stack::new));
 
         HashSet<Hexagon> visited = new HashSet<>();
@@ -101,7 +104,7 @@ class GameBoard extends GraphicsGroup {
         while (!stack.empty()) {
             Hexagon last = stack.pop();
             for (Hexagon hex: last.getAdjacent()) {
-                if (hex.player() == HexGame.SECOND_PLAYER && !visited.contains(hex)) {
+                if (hex.getPlayer() == HexGame.SECOND_PLAYER && !visited.contains(hex)) {
                     if (SE_region.contains(hex)) return true;
                     visited.add(hex);
                     stack.add(hex);
