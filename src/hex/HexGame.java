@@ -52,9 +52,12 @@ class HexGame extends CanvasWindow implements MouseListener {
      */
     @Override
     public void mouseClicked(MouseEvent e) {
-        GraphicsObject hex = this.getElementAt(e.getX(), e.getY());
+        GraphicsObject hex = board.getElementAt(e.getX() - board.getX(), e.getY() - board.getY());
+        System.out.print((e.getX() - board.getX()) + "\n");
         System.out.print("Mouse click registered\n");
+        System.out.print(hex + "\n");
         // TODO: hex does not get recognized as of class Hexagon.
+
         if (hex instanceof Hexagon && ((Hexagon) hex).getPlayer() == FREE_HEX) {
             System.out.print("Marking hex" + hex.getPosition());
             ((Hexagon) hex).mark(turn);
