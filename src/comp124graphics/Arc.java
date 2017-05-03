@@ -159,7 +159,7 @@ public class Arc extends GraphicsObject {
         Point.Double point = new Point2D.Double(x, y);
         Point.Double transformedPoint = new Point2D.Double(x, y);
         transform.transform(point, transformedPoint);
-        Rectangle test = new Rectangle((int)Math.round(transformedPoint.getX()),
+        java.awt.Rectangle test = new java.awt.Rectangle((int)Math.round(transformedPoint.getX()),
                 (int)Math.round(transformedPoint.getY()), 1*devScale,1*devScale);
         if (gc.hit(test, shape, false || gc.hit(test, shape, true))){
             return true;
@@ -170,6 +170,6 @@ public class Arc extends GraphicsObject {
 
     @Override
     public Rectangle getBounds() {
-       return shape.getBounds();
+        return shape.getBounds();
     }
 }

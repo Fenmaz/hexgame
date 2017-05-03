@@ -172,7 +172,7 @@ public class Line extends GraphicsObject {
         Point.Double point = new Point2D.Double(x, y);
         Point.Double transformedPoint = new Point2D.Double(x, y);
         transform.transform(point, transformedPoint);
-        Rectangle test = new Rectangle((int)Math.round(transformedPoint.getX()), (int)Math.round(transformedPoint.getY()), 1*devScale,1*devScale);
+        java.awt.Rectangle test = new java.awt.Rectangle((int)Math.round(transformedPoint.getX()), (int)Math.round(transformedPoint.getY()), 1*devScale,1*devScale);
         if (gc.hit(test, shape, false || gc.hit(test, shape, true))){
             return true;
         }
@@ -208,7 +208,7 @@ public class Line extends GraphicsObject {
      * Returns an axis aligned bounding rectangle for the graphical object.
      * @return
      */
-    public Rectangle getBounds(){
-        return new Rectangle((int)getX1(), (int)getY1(), (int)Math.abs(getX2()-getX1()), (int)Math.abs(getY1()-getY2()));
+    public java.awt.Rectangle getBounds(){
+        return new java.awt.Rectangle((int)getX1(), (int)getY1(), (int)Math.abs(getX2()-getX1()), (int)Math.abs(getY1()-getY2()));
     }
 }
