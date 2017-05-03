@@ -2,6 +2,7 @@ package hex;
 
 import comp124graphics.*;
 
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import static hex.HexGame.HEX_HEIGHT;
@@ -20,6 +21,8 @@ class Hexagon extends GraphicsGroup{
 
     private ArrayList<Hexagon> adjacent;
 
+    private Point2D[] corners;
+
 
     Hexagon(double x, double y) {
 
@@ -30,20 +33,27 @@ class Hexagon extends GraphicsGroup{
         this.x = x;
         this.y = y;
 
-        adjacent = new ArrayList<>();
+        this.adjacent = new ArrayList<>();
+        this.corners = new Point2D[6];
 
-        Line line1 = new Line(x + HEX_RADIUS, y, x + 0.5 * HEX_RADIUS, y - HEX_HEIGHT);
-        Line line2 = new Line(x + 0.5 * HEX_RADIUS, y - HEX_HEIGHT, x - 0.5 * HEX_RADIUS, y -HEX_HEIGHT);
-        Line line3 = new Line(x - 0.5 * HEX_RADIUS, y - HEX_HEIGHT, x - HEX_RADIUS, y);
-        Line line4 = new Line(x - HEX_RADIUS, y, x - 0.5 * HEX_RADIUS, y + HEX_HEIGHT);
-        Line line5 = new Line(x - 0.5 * HEX_RADIUS, y + HEX_HEIGHT, x + 0.5 * HEX_RADIUS, y + HEX_HEIGHT);
-        Line line6 = new Line(x + 0.5 * HEX_RADIUS, y + HEX_HEIGHT, x + HEX_RADIUS, y);
-        add(line1);
-        add(line2);
-        add(line3);
-        add(line4);
-        add(line5);
-        add(line6);
+        corners[0] = new Point2D.Double(x + HEX_RADIUS, y);
+        corners[1] = new Point2D.Double(x + 0.5 * HEX_RADIUS, y - HEX_HEIGHT);
+        corners[2] = new Point2D.Double(x - 0.5 * HEX_RADIUS, y - HEX_HEIGHT);
+        corners[3] = new Point2D.Double(x - HEX_RADIUS, y);
+        corners[4] = new Point2D.Double(x - 0.5 * HEX_RADIUS, y + HEX_HEIGHT);
+        corners[5] = new Point2D.Double(x + 0.5 * HEX_RADIUS, y + HEX_HEIGHT);
+
+        drawLine();
+    }
+
+    private void drawLine() {
+        for (int i = 0; i < 5; i++) {
+            Line line = new Line(corners[i].getX(), corners[i].getY(), corners[i + 1].getX(), corners[i + 1].getY());
+            add(line);
+        }
+
+        Line line = new Line(corners[0].getX(), corners[0].getY(), corners[5].getX(), corners[5].getY());
+        add(line);
     }
 
     void mark(int player) {
