@@ -160,7 +160,7 @@ public class Image extends GraphicsObject{
      * Returns an axis aligned bounding rectangle for the graphical object.
      * @return
      */
-    public Rectangle getBounds(){
-        return new Rectangle((int)getX(), (int)getY(), (int)getWidth(), (int)getHeight());
+    public java.awt.Rectangle getBounds(){
+        return new java.awt.Rectangle((int)getX(), (int)getY(), (int)getWidth(), (int)getHeight());
     }
 }
