@@ -10,7 +10,7 @@ import java.awt.event.MouseListener;
 /**
  * Primary game setup and logic.
  */
-public class HexGame extends CanvasWindow implements MouseListener {
+class HexGame extends CanvasWindow implements MouseListener {
 
     /* Private constants */
     private static final int CANVAS_WIDTH = 800;

@@ -60,7 +60,7 @@ class GameBoard extends GraphicsGroup {
     }
 
     /**
-     * Check if the first player wins.
+     * Check if the first player wins, using a DFS from the
      */
     boolean firstPlayerWin() {
 //        Stack<Hexagon> stack = new Stack<>();
@@ -69,7 +69,7 @@ class GameBoard extends GraphicsGroup {
 //                stack.add(hex);
 
         Stack<Hexagon> stack = SW_region.stream()
-                .filter(hexagon -> hexagon.player() != HexGame.FIRST_PLAYER)
+                .filter(hexagon -> hexagon.player() == HexGame.FIRST_PLAYER)
                 .collect(Collectors.toCollection(Stack::new));
 
         HashSet<Hexagon> visited = new HashSet<>();
@@ -93,7 +93,7 @@ class GameBoard extends GraphicsGroup {
      */
     boolean secondPlayerWin() {
         Stack<Hexagon> stack = NW_region.stream()
-                .filter(hexagon -> hexagon.player() != HexGame.SECOND_PLAYER)
+                .filter(hexagon -> hexagon.player() == HexGame.SECOND_PLAYER)
                 .collect(Collectors.toCollection(Stack::new));
 
         HashSet<Hexagon> visited = new HashSet<>();
