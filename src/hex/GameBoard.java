@@ -2,8 +2,6 @@ package hex;
 
 import comp124graphics.GraphicsGroup;
 
-import java.util.ArrayList;
-
 /**
  * Created by Trung Nguyen on 5/2/2017.
  *
@@ -12,18 +10,30 @@ import java.util.ArrayList;
 public class GameBoard extends GraphicsGroup {
 
 
-    private ArrayList<Hexagon> allHexes;
+    private Hexagon[] allHexes;
 
     /**
      * Draw the game board.
      */
     GameBoard(int numHexOnEdge) {
+        allHexes = new Hexagon[numHexOnEdge * numHexOnEdge];
+
+        // Draw all hex and add them to an array.
         for (int i = 0; i < numHexOnEdge; i++) {
             for (int j = 0; j < numHexOnEdge; j++) {
                 Hexagon hex = new Hexagon((i - j) * HexGame.HEX_HEIGHT, (i + j) * HexGame.HEX_RADIUS * 2);
                 add(hex);
-                allHexes.add(hex);
+                allHexes[i * numHexOnEdge + j] = hex;
             }
+        }
+
+        // Add all adjacent hexagons to each hex.
+        for (int i = 0; i < allHexes.length; i++) {
+            Hexagon hex = allHexes[i];
+            int[] possibleAdjacent = {i - 1, i + 1, i - numHexOnEdge, i + numHexOnEdge,
+                    i - numHexOnEdge + 1, i + numHexOnEdge - 1};
+            for (int j: possibleAdjacent) if (0 <= j && j < allHexes.length) hex.addAdjacent(allHexes[j]);
+
         }
     }
 
