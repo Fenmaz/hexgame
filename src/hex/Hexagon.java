@@ -11,6 +11,10 @@ import java.util.ArrayList;
 import static hex.HexGame.HEX_HEIGHT;
 import static hex.HexGame.HEX_RADIUS;
 
+import static hex.HexGame.FREE_HEX;
+import static hex.HexGame.FIRST_PLAYER;
+import static hex.HexGame.SECOND_PLAYER;
+
 
 /**
  * Created by Trung Nguyen on 5/2/2017.
@@ -31,7 +35,7 @@ class Hexagon extends GraphicsGroup implements MouseListener {
 
         super(x, y);
 
-        this.player = HexGame.FREE_HEX;
+        this.player = FREE_HEX;
 
         this.x = x;
         this.y = y;
@@ -60,8 +64,9 @@ class Hexagon extends GraphicsGroup implements MouseListener {
     }
 
     void mark(int player) {
-        if (player == HexGame.FIRST_PLAYER) xState();
-        else if (player == HexGame.SECOND_PLAYER) oState();
+        this.player = player;
+        if (player == FIRST_PLAYER) xState();
+        else if (player == SECOND_PLAYER) oState();
     }
 
     /**
@@ -72,7 +77,6 @@ class Hexagon extends GraphicsGroup implements MouseListener {
         Line lineX2 = new Line (x - 0.5 * HEX_RADIUS, y + 0.5 * HEX_HEIGHT, x + 0.5 * HEX_RADIUS, y - 0.5 * HEX_HEIGHT);
         add(lineX1);
         add(lineX2);
-//        System.out.print("This piece is occupied by player "+occupied+".");
     }
 
     /**
@@ -81,7 +85,6 @@ class Hexagon extends GraphicsGroup implements MouseListener {
     private void oState() {
         Ellipse circleO = new Ellipse(x - 0.5 * HEX_RADIUS, y - 0.5 * HEX_HEIGHT, HEX_RADIUS, HEX_RADIUS);
         add(circleO);
-//        System.out.print("This piece is occupied by player "+occupied+".");
     }
 
     int getPlayer() { return this.player; }
@@ -96,6 +99,9 @@ class Hexagon extends GraphicsGroup implements MouseListener {
 
     public boolean testHit(double x, double y, Graphics2D gc) {
 //        System.out.print("Inside test hit \n");
+
+        x -= this.x;
+        y -= this.y;
 
         for (int i = 0; i < 5; i++) {
             double d = (x - corners[i].getX()) * (corners[i + 1].getY() - corners[i].getY())
@@ -123,7 +129,7 @@ class Hexagon extends GraphicsGroup implements MouseListener {
     }
 
     public void mouseClicked(MouseEvent e) {
-//        System.out.print(this.getElementAt(e.getX(), e.getY()) + "\n");
+        System.out.print(this.getElementAt(e.getX(), e.getY()) + "\n");
     }
 
     // Unused mouse listener methods

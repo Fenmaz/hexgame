@@ -16,7 +16,7 @@ class HexGame extends CanvasWindow implements MouseListener {
     private static final int CANVAS_WIDTH = 1000;
     private static final int CANVAS_HEIGHT = 600;
 
-    private static final int NUM_HEX_ON_EDGE = 11;
+    private static final int NUM_HEX_ON_EDGE = 5;
 
     static final int FREE_HEX = 0;
     static final int FIRST_PLAYER = 1;
@@ -75,8 +75,10 @@ class HexGame extends CanvasWindow implements MouseListener {
      * Announce the winner with a text in the middle of the screen
      */
     private void announceWinner(int winner) {
+        System.out.print("Winner is decided");
         GraphicsText announcement = new GraphicsText("Player " + winner + " wins!", 0, 0);
         announcement.move((CANVAS_WIDTH - announcement.getWidth()) / 2, (CANVAS_HEIGHT - announcement.getHeight()) / 2);
+        add(announcement);
     }
 
     // Unused mouse listener methods
