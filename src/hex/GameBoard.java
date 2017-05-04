@@ -86,11 +86,6 @@ class GameBoard extends GraphicsGroup {
      * Check if the first player wins, using a DFS from the
      */
     boolean firstPlayerWin() {
-//        Stack<Hexagon> stack = new Stack<>();
-//        for (Hexagon hex: SW_region)
-//            if (hex.player() == HexGame.FIRST_PLAYER)
-//                stack.add(hex);
-
         Stack<Hexagon> stack = SW_region.stream()
                 .filter(hexagon -> hexagon.getPlayer() == HexGame.FIRST_PLAYER)
                 .collect(Collectors.toCollection(Stack::new));

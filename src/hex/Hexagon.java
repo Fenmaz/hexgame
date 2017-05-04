@@ -98,8 +98,6 @@ class Hexagon extends GraphicsGroup implements MouseListener {
     }
 
     public boolean testHit(double x, double y, Graphics2D gc) {
-//        System.out.print("Inside test hit \n");
-
         x -= this.x;
         y -= this.y;
 
@@ -107,12 +105,10 @@ class Hexagon extends GraphicsGroup implements MouseListener {
             double d = (x - corners[i].getX()) * (corners[i + 1].getY() - corners[i].getY())
                     - (y - corners[i].getY()) * (corners[i + 1].getX() - corners[i].getX());
             if (d < 0) {
-//                System.out.print("Failed at " + i + "\n");
                 return false;
             }
         }
 
-//        System.out.print("Failed at 5 \n");
         return (x - corners[5].getX()) * (corners[0].getY() - corners[5].getY())
                 - (y - corners[5].getY()) * (corners[0].getX() - corners[5].getX()) >= 0;
     }

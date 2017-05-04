@@ -16,7 +16,7 @@ class HexGame extends CanvasWindow implements MouseListener {
     private static final int CANVAS_WIDTH = 1000;
     private static final int CANVAS_HEIGHT = 600;
 
-    private static final int NUM_HEX_ON_EDGE = 5;
+    private static final int NUM_HEX_ON_EDGE = 1;
 
     static final int FREE_HEX = 0;
     static final int FIRST_PLAYER = 1;
@@ -31,6 +31,8 @@ class HexGame extends CanvasWindow implements MouseListener {
 
     private int turn;
 
+    private boolean gameOver;
+
 
     /**
      * Initialize the game board and mouse listeners. Player 1 moves first.
@@ -43,6 +45,7 @@ class HexGame extends CanvasWindow implements MouseListener {
         add(board, (CANVAS_WIDTH - board.getWidth()) / 2, (CANVAS_HEIGHT - board.getHeight()) / 2);
 
         turn = FIRST_PLAYER;
+        gameOver = false;
 
         addMouseListener(this);
     }
@@ -53,8 +56,6 @@ class HexGame extends CanvasWindow implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         GraphicsObject hex = board.getElementAt(e.getX(), e.getY());
-//        System.out.print("Mouse click registered\n");
-//        System.out.print(hex + "\n");
 
         if (hex instanceof Hexagon && ((Hexagon) hex).getPlayer() == FREE_HEX) {
             System.out.print(e.getX() + ", " + e.getY() + "\n");
