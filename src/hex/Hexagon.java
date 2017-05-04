@@ -3,6 +3,8 @@ package hex;
 import comp124graphics.*;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
@@ -14,16 +16,16 @@ import static hex.HexGame.HEX_RADIUS;
  * Created by Trung Nguyen on 5/2/2017.
  *
  */
-class Hexagon extends GraphicsGroup{
+class Hexagon extends GraphicsGroup implements MouseListener {
 
     private int player;
+
     private double x;
     private double y;
 
     private ArrayList<Hexagon> adjacent;
 
     private Point2D[] corners;
-
 
     Hexagon(double x, double y) {
 
@@ -93,15 +95,43 @@ class Hexagon extends GraphicsGroup{
     }
 
     public boolean testHit(double x, double y, Graphics2D gc) {
-        // TODO: return true if the point is in the hex region
-        return false;
+//        System.out.print("Inside test hit \n");
+
+        for (int i = 0; i < 5; i++) {
+            double d = (x - corners[i].getX()) * (corners[i + 1].getY() - corners[i].getY())
+                    - (y - corners[i].getY()) * (corners[i + 1].getX() - corners[i].getX());
+            if (d < 0) {
+//                System.out.print("Failed at " + i + "\n");
+                return false;
+            }
+        }
+
+//        System.out.print("Failed at 5 \n");
+        return (x - corners[5].getX()) * (corners[0].getY() - corners[5].getY())
+                - (y - corners[5].getY()) * (corners[0].getX() - corners[5].getX()) >= 0;
     }
+
+    private CanvasWindow canvasWindow;
 
     public static void main(String[] arg) {
         CanvasWindow canvasWindow = new CanvasWindow("Test", 500, 500);
         Hexagon hex = new Hexagon(200,200);
         canvasWindow.add(hex);
         hex.oState();
+
+        canvasWindow.addMouseListener(hex);
     }
 
+    public void mouseClicked(MouseEvent e) {
+//        System.out.print(this.getElementAt(e.getX(), e.getY()) + "\n");
+    }
+
+    // Unused mouse listener methods
+    public void mouseEntered(MouseEvent e) {}
+
+    public void mouseExited(MouseEvent e) {}
+
+    public void mousePressed(MouseEvent e) {}
+
+    public void mouseReleased(MouseEvent e) {}
 }

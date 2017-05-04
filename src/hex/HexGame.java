@@ -23,7 +23,7 @@ class HexGame extends CanvasWindow implements MouseListener {
     static final int SECOND_PLAYER = 2;
 
     static final double HEX_RADIUS = 30;
-    static final double HEX_HEIGHT = HEX_RADIUS * Math.sqrt(3) / 2;
+    static final double HEX_HEIGHT = (HEX_RADIUS * Math.sqrt(3) / 2);
 
 
     /* Private variables */
@@ -52,14 +52,13 @@ class HexGame extends CanvasWindow implements MouseListener {
      */
     @Override
     public void mouseClicked(MouseEvent e) {
-        GraphicsObject hex = board.getElementAt(e.getX() - board.getX(), e.getY() - board.getY());
-        System.out.print((e.getX() - board.getX()) + "\n");
-        System.out.print("Mouse click registered\n");
-        System.out.print(hex + "\n");
-        // TODO: hex does not get recognized as of class Hexagon.
+        GraphicsObject hex = board.getElementAt(e.getX(), e.getY());
+//        System.out.print("Mouse click registered\n");
+//        System.out.print(hex + "\n");
 
         if (hex instanceof Hexagon && ((Hexagon) hex).getPlayer() == FREE_HEX) {
-            System.out.print("Marking hex" + hex.getPosition());
+            System.out.print(e.getX() + ", " + e.getY() + "\n");
+            System.out.print("Marking hex" + hex.getPosition() + "\n");
             ((Hexagon) hex).mark(turn);
 
             // Check if either player wins

@@ -45,7 +45,7 @@ class GameBoard extends GraphicsGroup {
         // Draw all hex and add them to an array.
         for (int i = 0; i < numHexOnEdge; i++) {
             for (int j = 0; j < numHexOnEdge; j++) {
-                Hexagon hex = new Hexagon((i + j + 1) * HEX_RADIUS * 1.5 / 2, (numHexOnEdge + 1 + j - i) * HEX_HEIGHT / 2);
+                Hexagon hex = new Hexagon((i + j + 1) * HEX_RADIUS * 1.5 / 2, (numHexOnEdge + j - i) * HEX_HEIGHT / 2);
                 add(hex);
                 this.allHexes[i * numHexOnEdge + j] = hex;
             }
