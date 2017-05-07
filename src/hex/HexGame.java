@@ -1,8 +1,6 @@
 package hex;
 
-import comp124graphics.CanvasWindow;
-import comp124graphics.GraphicsObject;
-import comp124graphics.GraphicsText;
+import comp124graphics.*;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -47,6 +45,9 @@ class HexGame extends CanvasWindow implements MouseListener {
         board = new GameBoard(NUM_HEX_ON_EDGE);
         add(board, (CANVAS_WIDTH - board.getWidth()) / 2, (CANVAS_HEIGHT - board.getHeight()) / 2);
 
+        addX();
+        addO();
+
         turn = FIRST_PLAYER;
         gameOver = false;
 
@@ -56,6 +57,8 @@ class HexGame extends CanvasWindow implements MouseListener {
         announcement.move((CANVAS_WIDTH - announcement.getWidth()) / 2, (CANVAS_HEIGHT - announcement.getHeight()));
 
         addMouseListener(this);
+
+
     }
 
     /**
@@ -98,6 +101,24 @@ class HexGame extends CanvasWindow implements MouseListener {
         announcement.setText("Player " + winner + " wins!");
         add(announcement);
         gameOver = true;
+    }
+
+    private void addX() {
+        Line lineX1 = new Line(10, 10, 25, 25);
+        Line lineX2 = new Line (10, 25, 25, 10);
+        Line lineX3 = new Line(980, 680, 965, 665);
+        Line lineX4 = new Line (965, 680, 980, 665);
+        add(lineX1);
+        add(lineX2);
+        add(lineX3);
+        add(lineX4);
+    }
+
+    private void addO() {
+        Ellipse circleO1 = new Ellipse(965, 10, 15, 15);
+        Ellipse circleO2 = new Ellipse(10, 665, 15, 15);
+        add(circleO1);
+        add(circleO2);
     }
 
     // Unused mouse listener methods
