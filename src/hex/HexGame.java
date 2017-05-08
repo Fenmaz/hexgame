@@ -1,6 +1,7 @@
 package hex;
 
 import comp124graphics.*;
+import comp124graphics.Rectangle;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -22,7 +23,7 @@ class HexGame extends CanvasWindow implements MouseListener {
     static final int SECOND_PLAYER = 2;
 
     static final double HEX_RADIUS = 30;
-    static final double HEX_HEIGHT = (HEX_RADIUS * Math.sqrt(3) / 2);
+    static final double HEX_HEIGHT = HEX_RADIUS * Math.sqrt(3) / 2;
 
     private static final int ANNOUNCEMENT_FONT_SIZE = 40;
 
@@ -42,9 +43,15 @@ class HexGame extends CanvasWindow implements MouseListener {
 
         super("Hex Game", CANVAS_WIDTH, CANVAS_HEIGHT);
 
+        System.out.print(HEX_RADIUS + "\n");
+        System.out.print(HEX_HEIGHT + "\n");
+
         board = new GameBoard(NUM_HEX_ON_EDGE);
-        add(board, (CANVAS_WIDTH -  HEX_RADIUS*2*(2*NUM_HEX_ON_EDGE-1)) / 2, (CANVAS_HEIGHT - HEX_HEIGHT*NUM_HEX_ON_EDGE*2) / 2);
+        add(board, (CANVAS_WIDTH - board.getWidth()) / 2, (CANVAS_HEIGHT - board.getHeight()) / 2);
         addXO();
+
+        Rectangle rect = new Rectangle(board.getX(), board.getY(), board.getWidth(), board.getHeight());
+        add(rect);
 
         turn = FIRST_PLAYER;
         gameOver = false;
@@ -106,6 +113,7 @@ class HexGame extends CanvasWindow implements MouseListener {
         double upStartY = ((CANVAS_HEIGHT - HEX_HEIGHT*NUM_HEX_ON_EDGE*2) / 2);
         double rightStartX = ((CANVAS_WIDTH - HEX_RADIUS*2*(2*NUM_HEX_ON_EDGE-1)) / 2)+HEX_RADIUS*2*(2*NUM_HEX_ON_EDGE-1)-HEX_RADIUS*NUM_HEX_ON_EDGE*1.4;
         double downStartY = ((CANVAS_HEIGHT - HEX_HEIGHT*NUM_HEX_ON_EDGE*2) / 2)+1.6*HEX_HEIGHT*NUM_HEX_ON_EDGE;
+
         Line lineX1 = new Line(rightStartX, upStartY, rightStartX+15, upStartY+15);
         Line lineX2 = new Line (rightStartX, upStartY+15, rightStartX+15, upStartY);
         Line lineX3 = new Line(leftStartX+15, downStartY, leftStartX,  downStartY-15);
