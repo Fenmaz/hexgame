@@ -13,10 +13,10 @@ import java.awt.event.MouseListener;
 class HexGame extends CanvasWindow implements MouseListener {
 
     /* Private constants */
-    private static final int CANVAS_WIDTH = 1500;
+    private static final int CANVAS_WIDTH = 1000;
     private static final int CANVAS_HEIGHT = 800;
 
-    private static final int NUM_HEX_ON_EDGE = 11;
+    private static final int NUM_HEX_ON_EDGE = 5;
 
     static final int FREE_HEX = 0;
     static final int FIRST_PLAYER = 1;
@@ -50,8 +50,8 @@ class HexGame extends CanvasWindow implements MouseListener {
         add(board, (CANVAS_WIDTH - board.getWidth()) / 2, (CANVAS_HEIGHT - board.getHeight()) / 2);
         addXO();
 
-        Rectangle rect = new Rectangle(board.getX(), board.getY(), board.getWidth(), board.getHeight());
-        add(rect);
+//        Rectangle rect = new Rectangle(board.getX(), board.getY(), board.getWidth(), board.getHeight());
+//        add(rect);
 
         turn = FIRST_PLAYER;
         gameOver = false;
@@ -109,10 +109,10 @@ class HexGame extends CanvasWindow implements MouseListener {
     }
 
     private void addXO() {
-        double leftStartX = ((CANVAS_WIDTH - HEX_RADIUS*2*(2*NUM_HEX_ON_EDGE-1)) / 2)+HEX_RADIUS*NUM_HEX_ON_EDGE/2;
-        double upStartY = ((CANVAS_HEIGHT - HEX_HEIGHT*NUM_HEX_ON_EDGE*2) / 2);
-        double rightStartX = ((CANVAS_WIDTH - HEX_RADIUS*2*(2*NUM_HEX_ON_EDGE-1)) / 2)+HEX_RADIUS*2*(2*NUM_HEX_ON_EDGE-1)-HEX_RADIUS*NUM_HEX_ON_EDGE*1.4;
-        double downStartY = ((CANVAS_HEIGHT - HEX_HEIGHT*NUM_HEX_ON_EDGE*2) / 2)+1.6*HEX_HEIGHT*NUM_HEX_ON_EDGE;
+        double leftStartX = ((CANVAS_WIDTH - board.getWidth()) / 2)+ board.getWidth()/6;
+        double upStartY = ((CANVAS_HEIGHT - board.getHeight()) / 2)+board.getHeight()/6;
+        double rightStartX = ((CANVAS_WIDTH - board.getWidth()) / 2)+5*board.getWidth()/6;
+        double downStartY = ((CANVAS_HEIGHT - board.getHeight()) / 2)+5*board.getHeight()/6;
 
         Line lineX1 = new Line(rightStartX, upStartY, rightStartX+15, upStartY+15);
         Line lineX2 = new Line (rightStartX, upStartY+15, rightStartX+15, upStartY);
