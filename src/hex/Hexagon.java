@@ -1,6 +1,7 @@
 package hex;
 
 import comp124graphics.*;
+import comp124graphics.Rectangle;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -43,12 +44,12 @@ class Hexagon extends GraphicsGroup implements MouseListener {
         this.adjacent = new ArrayList<>();
         this.corners = new Point2D[6];
 
-        corners[0] = new Point2D.Double(x + HEX_RADIUS, y);
-        corners[1] = new Point2D.Double(x + 0.5 * HEX_RADIUS, y - HEX_HEIGHT);
-        corners[2] = new Point2D.Double(x - 0.5 * HEX_RADIUS, y - HEX_HEIGHT);
-        corners[3] = new Point2D.Double(x - HEX_RADIUS, y);
-        corners[4] = new Point2D.Double(x - 0.5 * HEX_RADIUS, y + HEX_HEIGHT);
-        corners[5] = new Point2D.Double(x + 0.5 * HEX_RADIUS, y + HEX_HEIGHT);
+        corners[0] = new Point2D.Double(HEX_RADIUS, 0);
+        corners[1] = new Point2D.Double(0.5 * HEX_RADIUS, - HEX_HEIGHT);
+        corners[2] = new Point2D.Double(- 0.5 * HEX_RADIUS, - HEX_HEIGHT);
+        corners[3] = new Point2D.Double(- HEX_RADIUS, 0);
+        corners[4] = new Point2D.Double(- 0.5 * HEX_RADIUS, HEX_HEIGHT);
+        corners[5] = new Point2D.Double(0.5 * HEX_RADIUS, HEX_HEIGHT);
 
         drawLine();
     }
@@ -73,8 +74,8 @@ class Hexagon extends GraphicsGroup implements MouseListener {
      * Draw x if the first player chooses the piece and mark the piece to be occupied by player 1.
      */
     private void xState() {
-        Line lineX1 = new Line(x - 0.5 * HEX_RADIUS, y - 0.5 * HEX_HEIGHT, x + 0.5 * HEX_RADIUS, y + 0.5 * HEX_HEIGHT);
-        Line lineX2 = new Line (x - 0.5 * HEX_RADIUS, y + 0.5 * HEX_HEIGHT, x + 0.5 * HEX_RADIUS, y - 0.5 * HEX_HEIGHT);
+        Line lineX1 = new Line(- 0.5 * HEX_RADIUS, - 0.5 * HEX_HEIGHT, 0.5 * HEX_RADIUS, 0.5 * HEX_HEIGHT);
+        Line lineX2 = new Line (- 0.5 * HEX_RADIUS, + 0.5 * HEX_HEIGHT, + 0.5 * HEX_RADIUS, - 0.5 * HEX_HEIGHT);
         add(lineX1);
         add(lineX2);
     }
@@ -83,7 +84,7 @@ class Hexagon extends GraphicsGroup implements MouseListener {
      * Draw o if the second player chooses the piece and mark the piece to be occupied by player 2.
      */
     private void oState() {
-        Ellipse circleO = new Ellipse(x - 0.5 * HEX_RADIUS, y - 0.5 * HEX_HEIGHT, HEX_RADIUS, HEX_RADIUS);
+        Ellipse circleO = new Ellipse(- 0.5 * HEX_RADIUS, - 0.5 * HEX_HEIGHT, HEX_RADIUS, HEX_RADIUS);
         add(circleO);
     }
 
@@ -113,12 +114,11 @@ class Hexagon extends GraphicsGroup implements MouseListener {
                 - (y - corners[5].getY()) * (corners[0].getX() - corners[5].getX()) >= 0;
     }
 
-    private CanvasWindow canvasWindow;
-
     public static void main(String[] arg) {
         CanvasWindow canvasWindow = new CanvasWindow("Test", 500, 500);
         Hexagon hex = new Hexagon(200,200);
         canvasWindow.add(hex);
+        hex.xState();
         hex.oState();
 
         canvasWindow.addMouseListener(hex);

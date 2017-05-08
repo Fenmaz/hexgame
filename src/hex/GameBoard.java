@@ -2,6 +2,8 @@ package hex;
 
 import comp124graphics.CanvasWindow;
 import comp124graphics.GraphicsGroup;
+import comp124graphics.Line;
+import comp124graphics.Rectangle;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -45,7 +47,7 @@ class GameBoard extends GraphicsGroup {
         // Draw all hex and add them to an array.
         for (int i = 0; i < numHexOnEdge; i++) {
             for (int j = 0; j < numHexOnEdge; j++) {
-                Hexagon hex = new Hexagon((i + j + 1) * HEX_RADIUS * 1.5 / 2, (numHexOnEdge - 2 + j - i) * HEX_HEIGHT / 2);
+                Hexagon hex = new Hexagon((i + j) * HEX_RADIUS * 1.5 + HEX_RADIUS, (j - i + numHexOnEdge) * HEX_HEIGHT);
                 add(hex);
                 this.allHexes[i * numHexOnEdge + j] = hex;
             }
@@ -131,9 +133,9 @@ class GameBoard extends GraphicsGroup {
     }
 
     public static void main(String[] arg) {
-        CanvasWindow canvas = new CanvasWindow("GameBoard", 1000, 700);
+        CanvasWindow canvas = new CanvasWindow("GameBoard", 1200, 700);
         GameBoard board = new GameBoard(11);
-        canvas.add(board);
+        canvas.add(board, 100, 100);
     }
 
 }
