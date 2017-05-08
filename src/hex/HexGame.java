@@ -14,15 +14,15 @@ class HexGame extends CanvasWindow implements MouseListener {
 
     /* Private constants */
     private static final int CANVAS_WIDTH = 1000;
-    private static final int CANVAS_HEIGHT = 800;
+    private static final int CANVAS_HEIGHT = 600;
 
-    private static final int NUM_HEX_ON_EDGE = 5;
+    private static final int NUM_HEX_ON_EDGE = 11;
 
     static final int FREE_HEX = 0;
     static final int FIRST_PLAYER = 1;
     static final int SECOND_PLAYER = 2;
 
-    static final double HEX_RADIUS = 30;
+    static final double HEX_RADIUS = 20;
     static final double HEX_HEIGHT = HEX_RADIUS * Math.sqrt(3) / 2;
 
     private static final int ANNOUNCEMENT_FONT_SIZE = 40;
