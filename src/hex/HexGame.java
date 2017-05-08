@@ -4,8 +4,8 @@ import comp124graphics.*;
 import comp124graphics.Rectangle;
 
 import java.awt.*;
-//import java.awt.event.MouseEvent;
-//import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 /**
  * Primary game setup and logic.
