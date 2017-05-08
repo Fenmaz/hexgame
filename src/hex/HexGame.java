@@ -12,10 +12,10 @@ import java.awt.event.MouseListener;
 class HexGame extends CanvasWindow implements MouseListener {
 
     /* Private constants */
-    private static final int CANVAS_WIDTH = 1000;
+    private static final int CANVAS_WIDTH = 1500;
     private static final int CANVAS_HEIGHT = 800;
 
-    private static final int NUM_HEX_ON_EDGE = 5;
+    private static final int NUM_HEX_ON_EDGE = 11;
 
     static final int FREE_HEX = 0;
     static final int FIRST_PLAYER = 1;
@@ -43,7 +43,7 @@ class HexGame extends CanvasWindow implements MouseListener {
         super("Hex Game", CANVAS_WIDTH, CANVAS_HEIGHT);
 
         board = new GameBoard(NUM_HEX_ON_EDGE);
-        add(board, (CANVAS_WIDTH - board.getWidth()) / 2, (CANVAS_HEIGHT - board.getHeight()) / 2);
+        add(board, (CANVAS_WIDTH -  HEX_RADIUS*2*(2*NUM_HEX_ON_EDGE-1)) / 2, (CANVAS_HEIGHT - HEX_HEIGHT*NUM_HEX_ON_EDGE*2) / 2);
         addXO();
 
         turn = FIRST_PLAYER;
@@ -102,16 +102,16 @@ class HexGame extends CanvasWindow implements MouseListener {
     }
 
     private void addXO() {
-        double leftStartX = ((CANVAS_WIDTH - board.getWidth()) / 2)+HEX_RADIUS*(NUM_HEX_ON_EDGE/2);
-        double leftStartY = ((CANVAS_HEIGHT - board.getHeight()) / 2);
-        double rightStartX = ((CANVAS_WIDTH - board.getWidth()) / 2)+HEX_RADIUS*2*(2*NUM_HEX_ON_EDGE-1)-HEX_RADIUS*NUM_HEX_ON_EDGE;
-        double rightStartY = ((CANVAS_HEIGHT - board.getHeight()) / 2)-100+HEX_HEIGHT*NUM_HEX_ON_EDGE*2;
-        Line lineX1 = new Line(leftStartX, leftStartY, leftStartX+15, leftStartY+15);
-        Line lineX2 = new Line (leftStartX, leftStartY+15, leftStartX+15, leftStartY);
-        Line lineX3 = new Line(rightStartX, rightStartY, rightStartX-15,  rightStartY-15);
-        Line lineX4 = new Line (rightStartX-15, rightStartY, rightStartX, rightStartY-15);
-        Ellipse circleO1 = new Ellipse(rightStartX, leftStartY, 15, 15);
-        Ellipse circleO2 = new Ellipse(leftStartX, rightStartY-15, 15, 15);
+        double leftStartX = ((CANVAS_WIDTH - HEX_RADIUS*2*(2*NUM_HEX_ON_EDGE-1)) / 2)+HEX_RADIUS*NUM_HEX_ON_EDGE/2;
+        double upStartY = ((CANVAS_HEIGHT - HEX_HEIGHT*NUM_HEX_ON_EDGE*2) / 2);
+        double rightStartX = ((CANVAS_WIDTH - HEX_RADIUS*2*(2*NUM_HEX_ON_EDGE-1)) / 2)+HEX_RADIUS*2*(2*NUM_HEX_ON_EDGE-1)-HEX_RADIUS*NUM_HEX_ON_EDGE*1.4;
+        double downStartY = ((CANVAS_HEIGHT - HEX_HEIGHT*NUM_HEX_ON_EDGE*2) / 2)+1.6*HEX_HEIGHT*NUM_HEX_ON_EDGE;
+        Line lineX1 = new Line(rightStartX, upStartY, rightStartX+15, upStartY+15);
+        Line lineX2 = new Line (rightStartX, upStartY+15, rightStartX+15, upStartY);
+        Line lineX3 = new Line(leftStartX+15, downStartY, leftStartX,  downStartY-15);
+        Line lineX4 = new Line (leftStartX, downStartY, leftStartX+15, downStartY-15);
+        Ellipse circleO1 = new Ellipse(leftStartX, upStartY, 15, 15);
+        Ellipse circleO2 = new Ellipse(rightStartX, downStartY-15, 15, 15);
         add(lineX1);
         add(lineX2);
         add(lineX3);
