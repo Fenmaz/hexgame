@@ -15,7 +15,7 @@ class HexGame extends CanvasWindow implements MouseListener {
     private static final int CANVAS_WIDTH = 1000;
     private static final int CANVAS_HEIGHT = 800;
 
-    private static final int NUM_HEX_ON_EDGE = 11;
+    private static final int NUM_HEX_ON_EDGE = 5;
 
     static final int FREE_HEX = 0;
     static final int FIRST_PLAYER = 1;
@@ -44,9 +44,7 @@ class HexGame extends CanvasWindow implements MouseListener {
 
         board = new GameBoard(NUM_HEX_ON_EDGE);
         add(board, (CANVAS_WIDTH - board.getWidth()) / 2, (CANVAS_HEIGHT - board.getHeight()) / 2);
-
-        addX();
-        addO();
+        addXO();
 
         turn = FIRST_PLAYER;
         gameOver = false;
@@ -103,20 +101,21 @@ class HexGame extends CanvasWindow implements MouseListener {
         gameOver = true;
     }
 
-    private void addX() {
-        Line lineX1 = new Line(10, 10, 25, 25);
-        Line lineX2 = new Line (10, 25, 25, 10);
-        Line lineX3 = new Line(980, 680, 965, 665);
-        Line lineX4 = new Line (965, 680, 980, 665);
+    private void addXO() {
+        double leftStartX = ((CANVAS_WIDTH - board.getWidth()) / 2)+HEX_RADIUS*(NUM_HEX_ON_EDGE/2);
+        double leftStartY = ((CANVAS_HEIGHT - board.getHeight()) / 2);
+        double rightStartX = ((CANVAS_WIDTH - board.getWidth()) / 2)+HEX_RADIUS*2*(2*NUM_HEX_ON_EDGE-1)-HEX_RADIUS*NUM_HEX_ON_EDGE;
+        double rightStartY = ((CANVAS_HEIGHT - board.getHeight()) / 2)-100+HEX_HEIGHT*NUM_HEX_ON_EDGE*2;
+        Line lineX1 = new Line(leftStartX, leftStartY, leftStartX+15, leftStartY+15);
+        Line lineX2 = new Line (leftStartX, leftStartY+15, leftStartX+15, leftStartY);
+        Line lineX3 = new Line(rightStartX, rightStartY, rightStartX-15,  rightStartY-15);
+        Line lineX4 = new Line (rightStartX-15, rightStartY, rightStartX, rightStartY-15);
+        Ellipse circleO1 = new Ellipse(rightStartX, leftStartY, 15, 15);
+        Ellipse circleO2 = new Ellipse(leftStartX, rightStartY-15, 15, 15);
         add(lineX1);
         add(lineX2);
         add(lineX3);
         add(lineX4);
-    }
-
-    private void addO() {
-        Ellipse circleO1 = new Ellipse(965, 10, 15, 15);
-        Ellipse circleO2 = new Ellipse(10, 665, 15, 15);
         add(circleO1);
         add(circleO2);
     }
@@ -135,3 +134,4 @@ class HexGame extends CanvasWindow implements MouseListener {
     }
 
 }
+
