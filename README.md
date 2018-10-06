@@ -1,3 +1,3 @@
 # Game of Hex
 
-Game of Hex simulator for final project in Topology, Macalester College, Spring 2017.
+An implementation of the game of [Hex](https://en.wikipedia.org/wiki/Hex_(board_game)) in Java.
